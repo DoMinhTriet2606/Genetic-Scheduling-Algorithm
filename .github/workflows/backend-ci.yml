@@ -11,6 +11,9 @@ jobs:
         name: Run Tests
         runs-on: ubuntu-latest
 
+        env:
+            CI: true
+
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v2
@@ -41,7 +44,7 @@ jobs:
             - name: Run Tests
               run: |
                   cd backend
-                  python manage.py test shift --settings=backend.test_settings
+                  python manage.py test shift
 
             - name: Clean up
               run: |
