@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'QLNS',
+        'NAME': 'qlns',
         'USER': 'minhtriet',
         'PASSWORD': 'nienluan2024',
         'HOST': '127.0.0.1',

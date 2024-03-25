@@ -5,12 +5,12 @@ from user.models import UserAccount
 from datetime import date
 
 
-# @override_settings(DATABASES={
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': ':memory:'
-#     }
-# })
+@override_settings(DATABASES={
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:'
+    }
+})
 class TimeTableTestCase(TestCase):
     def setUp(self):
         # Tạo một bảng thời gian mới
@@ -27,12 +27,12 @@ class TimeTableTestCase(TestCase):
         self.assertEqual(self.table.dateEnd, date(2024, 1, 7))
 
 
-# @override_settings(DATABASES={
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': ':memory:'
-#     }
-# })
+@override_settings(DATABASES={
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:'
+    }
+})
 class UserShiftTestCase(TestCase):
     def setUp(self):
         # Tạo một người dùng mới
