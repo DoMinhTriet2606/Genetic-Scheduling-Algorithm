@@ -20,11 +20,25 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install Dependencies
+    - name: Install SQLite
       run: |
-        pip install -r backend/backend/requirements.txt
+        sudo apt-get update
+        sudo apt-get install sqlite3 libsqlite3-dev
+
+    - name: Create SQLite Database
+      run: |
+        sqlite3 test.db
+
+    - name: Run Django Migrations
+      run: |
+        cd backend
+        python manage.py migrate
 
     - name: Run Tests
       run: |
         cd backend
         python manage.py test shift
+
+    - name: Clean up
+      run: |
+        rm -f test.db
