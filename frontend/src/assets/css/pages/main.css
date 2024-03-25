@@ -1,0 +1,88 @@
+.main__container {
+    max-width: 80%;
+    min-height: 80vh;
+    margin-inline: auto;
+
+    /* opacity: 0; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10%;
+
+    /* animation: show 1s ease-in 1s forwards; */
+}
+
+/* Greeting */
+.main__container .greeting {
+    text-align: center;
+    margin-top: -20px;
+    margin-left: -100px;
+}
+
+.main__container .greeting h1 {
+    font-size: 32px;
+    transform: translateX(-50%);
+    opacity: 0;
+
+    animation: slide-in 1.25s ease-out 1.25s forwards;
+}
+.main__container .greeting h2 {
+    margin-left: 80px;
+    transform: translateX(-100%);
+    opacity: 0;
+
+    animation: slide-in 1.25s ease-out 1.25s forwards;
+}
+
+/* Navigator */
+.main__container .nav__container {
+    animation: rotate 6.5s linear infinite;
+}
+
+.main__container .nav__container:hover {
+    width: 420px;
+    height: 420px;
+
+    animation-play-state: paused;
+}
+
+.main__container .nav__container:hover .nav__info {
+    animation: pop-out 0.75s ease-in-out forwards;
+}
+
+.main__container .nav__item {
+    position: absolute;
+    animation: rotate-reverse 6.5s linear infinite;
+}
+
+.main__container .nav__item:nth-child(1) {
+    top: 0;
+    left: 0;
+}
+.main__container .nav__item:nth-child(2) {
+    top: 0;
+    right: 0;
+}
+.main__container .nav__item:nth-child(3) {
+    bottom: 0;
+    right: 0;
+}
+.main__container .nav__item:nth-child(4) {
+    bottom: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 983px) {
+    .main__container .greeting {
+        font-size: 90%;
+        margin: 0;
+    }
+    .main__container .greeting h1 {
+        font-size: 28px;
+    }
+    .main__container .greeting h2 {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap");
+
+:root {
+    --light-theme-header: linear-gradient(#c9d6ff, #e2e2e2);
+    --dark-theme-header: linear-gradient(rgba(0, 4, 40, 0.8), rgba(0, 78, 146, 0.8));
+    --light-theme-color: #242424;
+    --dark-theme-color: #fff;
+    --header-height: 13vh;
+    --light-background-color: #ecf2ff;
+
+    --main-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+    --cubic-transition: cubic-bezier(0.5, -0.75, 0.7, 2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: var(--light-background-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+.disabled::before {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    content: "Need Permission";
+    width: 140px;
+    height: 40px;
+    padding: 12px 8px;
+    border-radius: 10px;
+    box-shadow: var(--main-box-shadow);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffc5c5;
+
+    transition: var(--cubic-transition);
+
+    pointer-events: none;
+}
+
+.page__container {
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+
+    margin-inline: auto;
+    overflow: hidden;
+}
+
+.section {
+    max-width: 80%;
+    margin-inline: auto;
+
+    /* border: 2px solid #000; */
+}
+
+/* Navigator */
+.section .nav__container {
+    position: absolute;
+    top: 28%;
+    left: 3%;
+}
+
+.section .nav__item {
+    width: 104px;
+    height: 104px;
+    font-size: 90%;
+
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.section .nav__item:nth-child(1) {
+    top: -20%;
+}
+.section .nav__item:nth-child(2) {
+    top: 24%;
+}
+.section .nav__item:nth-child(3) {
+    top: 68%;
+}
+.section .nav__item:nth-child(4) {
+    top: 112%;
+}
+
+.section .nav__item::before {
+    width: 16px;
+    height: 16px;
+}
+
+.section .nav__item::after {
+    width: 8px;
+    height: 8px;
+}
+
+.section .nav__item .nav__info {
+    display: none;
+}
