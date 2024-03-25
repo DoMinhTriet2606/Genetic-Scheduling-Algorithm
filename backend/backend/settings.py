@@ -106,7 +106,7 @@ DATABASES = {
         'NAME': 'QLNS',
         'USER': 'minhtriet',
         'PASSWORD': 'nienluan2024',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',  # Adjust as per your requirements
