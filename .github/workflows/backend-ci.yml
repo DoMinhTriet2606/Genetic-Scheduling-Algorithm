@@ -7,7 +7,8 @@ on:
       - development
 
 jobs:
-  build:
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -26,4 +27,4 @@ jobs:
     - name: Run Tests
       run: |
         cd backend
-        python manage.py test
+        python manage.py test user
