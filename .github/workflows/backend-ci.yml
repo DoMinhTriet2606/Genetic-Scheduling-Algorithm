@@ -20,6 +20,10 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Install Dependencies
+      run: |
+        pip install -r backend/backend/requirements.txt
+
     - name: Install SQLite
       run: |
         sudo apt-get update
