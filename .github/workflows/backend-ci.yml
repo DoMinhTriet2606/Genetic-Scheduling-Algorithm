@@ -1,48 +1,48 @@
 name: Backend CI
 
 on:
-  push:
-    branches:
-      - main
-      - development
+    push:
+        branches:
+            - main
+            - development
 
 jobs:
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
+    test:
+        name: Run Tests
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: "3.x"
 
-    - name: Install Dependencies
-      run: |
-        pip install -r backend/backend/requirements.txt
+            - name: Install Dependencies
+              run: |
+                  pip install -r backend/backend/requirements.txt
 
-    - name: Install SQLite
-      run: |
-        sudo apt-get update
-        sudo apt-get install sqlite3 libsqlite3-dev
+            - name: Install SQLite
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install sqlite3 libsqlite3-dev
 
-    - name: Create SQLite Database
-      run: |
-        sqlite3 test.db
+            - name: Create SQLite Database
+              run: |
+                  sqlite3 test.db
 
-    - name: Run Django Migrations
-      run: |
-        cd backend
-        python manage.py migrate
+            - name: Run Django Migrations
+              run: |
+                  cd backend
+                  python manage.py migrate
 
-    - name: Run Tests
-      run: |
-        cd backend
-        python manage.py test shift
+            - name: Run Tests
+              run: |
+                  cd backend
+                  python manage.py test shift --settings=backend.test_settings
 
-    - name: Clean up
-      run: |
-        rm -f test.db
+            - name: Clean up
+              run: |
+                  rm -f test.db
