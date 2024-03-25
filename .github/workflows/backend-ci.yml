@@ -37,21 +37,21 @@ jobs:
               run: |
                   cd backend
                   python manage.py migrate
-              env:
-                  DBENGINE: django.db.backends.mysql
-                  DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: 127.0.0.1
-                  DBPORT: $
+              # env:
+              #     DBENGINE: django.db.backends.mysql
+              #     DBNAME: qlns
+              #     DBUSER: minhtriet
+              #     DBPASSWORD: nienluan2024
+              #     DBHOST: 127.0.0.1
+              #     DBPORT: $
             - name: Run Tests
               run: |
                   cd backend
                   python manage.py test
-              env:
-                  DBENGINE: django.db.backends.mysql
-                  DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: 127.0.0.1
-                  DBPORT: $
+              # env:
+              #     DBENGINE: django.db.backends.mysql
+              #     DBNAME: qlns
+              #     DBUSER: minhtriet
+              #     DBPASSWORD: nienluan2024
+              #     DBHOST: 127.0.0.1
+              #     DBPORT: $
