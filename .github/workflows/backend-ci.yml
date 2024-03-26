@@ -15,10 +15,10 @@ jobs:
             mysql:
                 image: mysql:5.7
                 env:
-                    MYSQL_ROOT_PASSWORD: nienluan2024
                     MYSQL_DATABASE: qlns
+                    MYSQL_ROOT_PASSWORD: nienluan2024
                 ports:
-                    - "3306:3306"
+                    - 3306:3306
 
         steps:
             - name: Checkout Repository
@@ -35,25 +35,23 @@ jobs:
                   pip install -r backend/backend/requirements.txt
 
             - name: Run Migrations
+              env:
+                  DENGINE: django.db.backends.mysql
+                  DATABASE_NAME: qlns
+                  DATABASE_USERNAME: minhtriet
+                  DATABASE_PASSWORD: nienluan2024
+                  DATABASE_ENDPOINT: 127.0.0.1
               run: |
                   cd backend
                   python manage.py migrate
-              env:
-                  DBENGINE: django.db.backends.mysql
-                  DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: mysql
-                  DBPORT: "3306"
 
             - name: Run Tests
+              env:
+                  DENGINE: django.db.backends.mysql
+                  DATABASE_NAME: qlns
+                  DATABASE_USERNAME: minhtriet
+                  DATABASE_PASSWORD: nienluan2024
+                  DATABASE_ENDPOINT: 127.0.0.1
               run: |
                   cd backend
                   python manage.py test
-              env:
-                  DBENGINE: django.db.backends.mysql
-                  DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: mysql
-                  DBPORT: "3306"
