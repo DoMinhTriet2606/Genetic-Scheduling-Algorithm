@@ -16,7 +16,7 @@ jobs:
                 image: mysql:5.7
                 env:
                     MYSQL_DATABASE: qlns
-                    MYSQL_ROOT_PASSWORD: nienluan2024
+                    MYSQL_ROOT_PASSWORD: root
                 ports:
                     - "3306:3306"
 
@@ -41,9 +41,9 @@ jobs:
               env:
                   DBENGINE: django.db.backends.mysql
                   DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: "%"
+                  DBUSER: root
+                  DBPASSWORD: root
+                  DBHOST: mysql
                   DBPORT: "3306"
 
             - name: Run Tests
@@ -53,7 +53,7 @@ jobs:
               env:
                   DBENGINE: django.db.backends.mysql
                   DBNAME: qlns
-                  DBUSER: minhtriet
-                  DBPASSWORD: nienluan2024
-                  DBHOST: "%"
+                  DBUSER: root
+                  DBPASSWORD: root
+                  DBHOST: mysql
                   DBPORT: "3306"
