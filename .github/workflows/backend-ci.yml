@@ -7,51 +7,45 @@ on:
             - development
 
 jobs:
-    test:
-        name: Run Tests
+    tests:
         runs-on: ubuntu-latest
-
         services:
             mysql:
-                image: mysql:5.7
+                image: mysql:8.0
                 env:
+                    # The MySQL docker container requires these environment variables to be set
+                    # so we can create and migrate the test database.
+                    # See: https://hub.docker.com/_/mysql
                     MYSQL_DATABASE: qlns
-                    MYSQL_ROOT_PASSWORD: nienluan2024
+                    MYSQL_ROOT_PASSWORD: root
                 ports:
+                    # Opens port 3306 on service container and host
+                    # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
                     - 3306:3306
-
+                    # Before continuing, verify the mysql container is reachable from the ubuntu host
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v2
-
-            - name: Set up Python
-              uses: actions/setup-python@v2
+            - uses: actions/checkout@v3
+            - name: Install Ubuntu dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install libcurl4-openssl-dev libmysqlclient-dev libgirepository1.0-dev
+            - name: Setup Python
+              uses: actions/setup-python@v3
               with:
-                  python-version: "3.x"
-
-            - name: Install Dependencies
+                  python-version: 3.8
+            - name: Install Python dependencies
               run: |
-                  python -m pip install --upgrade pip
-                  pip install -r backend/backend/requirements.txt
-
-            - name: Run Migrations
+                  pip install -r backend/requirements.txt
+            - name: Run tests
+              # These environment variables will take precedence over the ones in the Django settings file
               env:
-                  DENGINE: django.db.backends.mysql
+                  # Set the DJANGO_SECRET_KEY in the Github repo settings: Go to Secrets and variables > Actions > New repository secret
+                  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
                   DATABASE_NAME: qlns
-                  DATABASE_USERNAME: minhtriet
-                  DATABASE_PASSWORD: nienluan2024
-                  DATABASE_ENDPOINT: 127.0.0.1
+                  DATABASE_USERNAME: root
+                  DATABASE_PASSWORD: root
+                  DATABASE_ENDPOINT: 127.0.0.1 # Will not work with 'localhost', since that will try a Unix socket connection (!)
               run: |
-                  cd backend
                   python manage.py migrate
-
-            - name: Run Tests
-              env:
-                  DENGINE: django.db.backends.mysql
-                  DATABASE_NAME: qlns
-                  DATABASE_USERNAME: minhtriet
-                  DATABASE_PASSWORD: nienluan2024
-                  DATABASE_ENDPOINT: 127.0.0.1
-              run: |
-                  cd backend
                   python manage.py test
