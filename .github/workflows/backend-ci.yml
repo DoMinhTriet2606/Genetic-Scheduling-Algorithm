@@ -50,5 +50,6 @@ jobs:
                   DATABASE_PASSWORD: root
                   DATABASE_ENDPOINT: 127.0.0.1 # Will not work with 'localhost', since that will try a Unix socket connection (!)
               run: |
+                  cd backend
                   python manage.py migrate
                   python manage.py test
