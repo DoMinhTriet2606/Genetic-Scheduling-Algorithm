@@ -107,7 +107,7 @@ DATABASES = {
         'NAME': 'qlns',
         'USER': 'minhtriet',
         'PASSWORD': 'nienluan2024',
-        'HOST': '127.0.0.1',
+        'HOST': '%',
         'PORT': '3306',
 
     }

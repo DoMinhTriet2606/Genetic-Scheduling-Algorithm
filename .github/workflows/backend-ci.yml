@@ -7,49 +7,53 @@ on:
             - development
 
 jobs:
-    tests:
+    test:
+        name: Run Tests
         runs-on: ubuntu-latest
+
         services:
             mysql:
-                image: mysql:8.0
+                image: mysql:5.7
                 env:
-                    # The MySQL docker container requires these environment variables to be set
-                    # so we can create and migrate the test database.
-                    # See: https://hub.docker.com/_/mysql
                     MYSQL_DATABASE: qlns
-                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_ROOT_PASSWORD: nienluan2024
                 ports:
-                    # Opens port 3306 on service container and host
-                    # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
-                    - 3306:3306
-                    # Before continuing, verify the mysql container is reachable from the ubuntu host
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                    - "3306:3306"
+
         steps:
-            - uses: actions/checkout@v3
-            - name: Install Ubuntu dependencies
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install libcurl4-openssl-dev libmysqlclient-dev libgirepository1.0-dev
+            - name: Checkout Repository
+              uses: actions/checkout@v2
 
-            - name: Setup Python
-              uses: actions/setup-python@v3
+            - name: Set up Python
+              uses: actions/setup-python@v2
               with:
-                  python-version: 3.x
+                  python-version: "3.x"
 
-            - name: Install Python dependencies
+            - name: Install Dependencies
               run: |
+                  python -m pip install --upgrade pip
                   pip install -r backend/requirements.txt
 
-            - name: Run tests
-              # These environment variables will take precedence over the ones in the Django settings file
-              env:
-                  # Set the DJANGO_SECRET_KEY in the Github repo settings: Go to Secrets and variables > Actions > New repository secret
-                  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-                  DATABASE_NAME: qlns
-                  DATABASE_USERNAME: root
-                  DATABASE_PASSWORD: root
-                  DATABASE_ENDPOINT: 127.0.0.1 # Will not work with 'localhost', since that will try a Unix socket connection (!)
+            - name: Run Migrations
               run: |
                   cd backend
                   python manage.py migrate
+              env:
+                  DBENGINE: django.db.backends.mysql
+                  DBNAME: qlns
+                  DBUSER: minhtriet
+                  DBPASSWORD: nienluan2024
+                  DBHOST: "%"
+                  DBPORT: "3306"
+
+            - name: Run Tests
+              run: |
+                  cd backend
                   python manage.py test
+              env:
+                  DBENGINE: django.db.backends.mysql
+                  DBNAME: qlns
+                  DBUSER: minhtriet
+                  DBPASSWORD: nienluan2024
+                  DBHOST: "%"
+                  DBPORT: "3306"
